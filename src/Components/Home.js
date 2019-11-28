@@ -1,12 +1,17 @@
-import React, {useContext} from 'react'
-import {WeatherContext} from '../WeatherContext'
+import React, { useContext } from "react";
+import { WeatherContext } from "../WeatherContext";
+import SearchCity from "./SearchCity/SearchCity";
+import CurrentWeather from "./CurrentWeather/CurrentWeather";
+import FiveDaysWeather from "./FiveDaysWeather/FiveDaysWeather";
 
-export const Home = () => {
+const Home = () => {
+  return (
+    <>
+      <SearchCity />
+      <CurrentWeather />
+      {/* <FiveDaysWeather/> */}
+    </>
+  );
+};
 
-    const {city} = useContext(WeatherContext)
-    return (
-        <div>
-            
-        </div>
-    )
-}
+export default Home;

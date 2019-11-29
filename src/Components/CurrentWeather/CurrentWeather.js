@@ -9,7 +9,16 @@ import {
 import {Link} from "react-router-dom"
 import day from "../../img/day.jpg";
 import night from "../../img/night.jpg";
+import clear from '../../img/clear.jpg'
+import clouds from '../../img/clouds.jpg'
+import rain from '../../img/rain.jpg'
+import drizzle from '../../img/drizzle.jpg'
+import mist from '../../img/mist.jpg'
+import storm from '../../img/storm.jpg'
+import snow from '../../img/snow.jpg'
+import normal from '../../img/normal.jpg'
 // import "../../../node_modules/weather-icons/css/weather-icons.css";
+
 
 const CurrentWeather = () => {
   const { city, currentWeather } = useContext(WeatherContext);
@@ -31,18 +40,45 @@ const CurrentWeather = () => {
     return date.getHours() > 22 || date.getHours() < 6;
   };
 
+  const changeBackground = (result) => {
+    switch (result) {
+      case 'Clear':
+        document.body.style.backgroundImage = `url(${clear})`
+        break;
+      case 'Clouds':
+        document.body.style.backgroundImage = `url(${clouds})`
+        break;
+      case 'Rain':
+        document.body.style.backgroundImage = `url(${rain})`
+        break;
+      case 'Drizzle':
+        document.body.style.backgroundImage = `url(${drizzle})`
+        break;
+      case 'Mist':
+        document.body.style.backgroundImage = `url(${mist})`
+        break;
+      case 'Thunderstorm':
+        document.body.style.backgroundImage = `url(${storm})`
+        break;
+      case 'Snow':
+        document.body.style.backgroundImage = `url(${snow})`
+        break;
+      default:
+        document.body.style.backgroundImage = `url(${normal})`
+    }
+  }
+
   if (currentWeather) {
+changeBackground(currentWeather.weather[0].main)
     return (
       <div className="container">
-        <div className="card text-center my-3">
+      <div style={{maxWidth: "460px", padding: "20px", borderRadius: "5px"}} className='mx-auto weather-container my-4'>
+        <div className="card text-center my-3" style={{background: "transparent"}}>
           <div className="card-header">
-            <h3>Current weather in your city</h3>
-            <h6><span style={{fontWeight: 300, fontSize: "12px"}}>Your Local Time:</span> {displayCurrentDateTime()}</h6>
+            <h3>Current weather</h3>
+            <h6><span style={{fontWeight: 300, fontSize: "12px"}}>Your Local Time:</span> <span className="d-block">{displayCurrentDateTime()}</span></h6>
           </div>
           <div className="card-body">
-          <h6><span style={{fontWeight: 300, fontSize: "12px"}}>Searched Place Time:</span>{" "}
-          {getSearchedPlaceTime(currentWeather.dt, currentWeather.timezone)}
-          </h6>
             <h5
               className="card-title"
               style={{ fontSize: "32px", fontWeight: 300 }}
@@ -74,7 +110,10 @@ const CurrentWeather = () => {
             <span className="display-4 align-middle">
               {roundTemp(currentWeather.main.temp)}&deg;C
             </span>
-            <ul className="list-group">
+            <h6 className=" mt-2"><span style={{fontWeight: 300, fontSize: "12px"}}>Searched Weather Data From Hour:</span>{" "}
+          <span className="d-block">{getSearchedPlaceTime(currentWeather.dt, currentWeather.timezone)}</span>
+          </h6>
+            <ul className="list-group mt-5" style={{background: "transparent"}}>
               <li className="list-group-item">
                 Description:{" "}
                 {currentWeather.weather[0].description.charAt(0).toUpperCase() +
@@ -107,6 +146,7 @@ const CurrentWeather = () => {
           </div>
         </div>
         <Link className="btn btn-primary" to={{pathname: `/city/${currentWeather.id}`}}>5 Days Weather</Link>
+        </div>
       </div>
     );
   } else {

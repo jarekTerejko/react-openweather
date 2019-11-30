@@ -7,6 +7,7 @@ import {
     getSearchedPlaceTime
   } from "../../config";
 import normal from '../../img/normal.jpg'
+import ThreeHoursWeather from '../ThreeHoursWeather/ThreeHoursWeather';
 
 const FiveDaysWeather = (props) => {
     console.log(props);
@@ -31,19 +32,25 @@ useEffect(() => {
         return (
             <div>
              <div className="container">
-        <div className="card text-center my-3">
-          <div className="card-header">
+        <div style={{maxWidth: "540px"}} className="card my-3 mx-auto">
+          <div className="card-header  text-center">
             <h3>Hourly weather and forecasts</h3>
             <h6><span style={{fontWeight: 300, fontSize: "12px"}}>Your Local Time:</span> {displayCurrentDateTime()}</h6>
           </div>
           <div className="card-body">
-              
-          </div>
-          </div>
-          </div>
-                <ul>
-ok
+          <ul className="list-group mt-5">
+{
+    fiveDaysWeather.list.map((threeHours, i) => {
+        return (
+            <ThreeHoursWeather key={i} threeHours={threeHours}/>
+        )
+    })
+}
                 </ul>
+          </div>
+          </div>
+          </div>
+                
             </div>
         )
     }

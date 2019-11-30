@@ -31,4 +31,8 @@ const displayCurrentDateTime = () => {
     return now.toLocaleString().slice(0,17)
 }
 
-export { apiKey, getCardinalDirection, getSunriseOrSunset, displayCurrentDateTime, getSearchedPlaceTime };
+const roundTemp = temp => {
+  return Math.round(temp);
+};
+
+export { apiKey, getCardinalDirection, getSunriseOrSunset, displayCurrentDateTime, getSearchedPlaceTime, roundTemp };

@@ -23,3 +23,16 @@ code {
 .list-group-item {
   background-color: transparent;
 }
+
+.hours-weather-cont {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@media (max-width: 575px) {
+  .hours-weather-cont {
+    display: block;
+    text-align: center;
+  }
+}

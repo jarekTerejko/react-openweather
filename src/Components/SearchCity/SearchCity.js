@@ -5,10 +5,10 @@ const SearchCity = () => {
   const { submitForm, city, setCity } = useContext(WeatherContext);
   return (
     <div className="container">
-    <div className="mx-auto" style={{maxWidth: "460px"}}>
+    <div className="mx-auto mt-5" style={{maxWidth: "460px"}}>
       <form onSubmit={submitForm}>
         <div className="form-group">
-          <label htmlFor={"city"}>Your city name</label>
+          <label className="text-light" htmlFor={"city"}>Your city name</label>
           <input
             type="text"
             id="city"

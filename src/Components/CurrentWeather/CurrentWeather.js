@@ -18,10 +18,12 @@ import mist from "../../img/mist.jpg";
 import storm from "../../img/storm.jpg";
 import snow from "../../img/snow.jpg";
 import normal from "../../img/normal.jpg";
+import WeatherWidget from "../WeatherWidget/WeatherWidget";
+import Loader from "../../Loader/Loader";
 // import "../../../node_modules/weather-icons/css/weather-icons.css";
 
 const CurrentWeather = () => {
-  const { city, currentWeather } = useContext(WeatherContext);
+  const { city, currentWeather, loading } = useContext(WeatherContext);
 
   const showMinMaxTemp = (min, max) => {
     return (
@@ -64,6 +66,10 @@ const CurrentWeather = () => {
     }
   };
 
+  if (loading) {
+    return <Loader />;
+  }
+
   if (currentWeather) {
     changeBackground(currentWeather.weather[0].main);
     return (
@@ -86,48 +92,7 @@ const CurrentWeather = () => {
               </h6>
             </div>
             <div className="card-body">
-              <h5
-                className="card-title"
-                style={{ fontSize: "32px", fontWeight: 300 }}
-              >
-                {!isNight(currentWeather.dt, currentWeather.timezone) ? (
-                  <img
-                    src={`http://openweathermap.org/img/wn/01d@2x.png`}
-                    alt="Day"
-                    title="Day"
-                  />
-                ) : (
-                  <img
-                    src={`http://openweathermap.org/img/wn/01n@2x.png`}
-                    alt="Night"
-                    title="Night"
-                  />
-                )}
-                {currentWeather.name}, <span>{currentWeather.sys.country}</span>
-              </h5>
-              {/* <div style={{display: "flex", flexDirection: "column"}}> */}
-              <img
-                src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
-                alt={currentWeather.weather[0].description}
-                title={currentWeather.weather[0].description}
-              />
-              {/* <span>{currentWeather.weather[0].description.charAt(0).toUpperCase() +
-                  currentWeather.weather[0].description.slice(1)}</span> */}
-              {/* </div> */}
-              <span className="display-4 align-middle">
-                {roundTemp(currentWeather.main.temp)}&deg;C
-              </span>
-              <h6 className=" mt-2">
-                <span style={{ fontWeight: 300, fontSize: "12px" }}>
-                  Searched Weather Data From Hour:
-                </span>{" "}
-                <span className="d-block">
-                  {getSearchedPlaceTime(
-                    currentWeather.dt,
-                    currentWeather.timezone
-                  )}
-                </span>
-              </h6>
+              <WeatherWidget />
               <ul
                 className="list-group mt-5"
                 style={{ background: "transparent" }}
@@ -176,7 +141,8 @@ const CurrentWeather = () => {
       </div>
     );
   } else {
-    return <h1>Loading...</h1>;
+    document.body.style.backgroundImage = `url(${normal})`;
+    return null;
   }
 };
 

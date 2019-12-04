@@ -9,7 +9,7 @@ import {
 } from "../../config";
 
 const ThreeHoursWeather = ({ threeHours }) => {
-  console.log(threeHours);
+  // console.log(threeHours);
 
   const { fiveDaysWeather } = useContext(WeatherContext);
 
